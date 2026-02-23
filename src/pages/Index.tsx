@@ -6,6 +6,7 @@ import RiskTab from "@/components/dashboard/RiskTab";
 import EquityTab from "@/components/dashboard/EquityTab";
 import { METRIC_LABELS, ColorMetric } from "@/lib/dataLoader";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Search, RotateCcw, MapPin } from "lucide-react";
 
 export default function Index() {
@@ -13,6 +14,7 @@ export default function Index() {
     loading,
     error,
     villagesGeoJSON,
+    allVillagesGeoJSON,
     unionsGeoJSON,
     filteredVillages,
     colorMetric,
@@ -118,9 +120,10 @@ export default function Index() {
             </div>
           </div>
 
-          {villagesGeoJSON && unionsGeoJSON && (
+          {villagesGeoJSON && allVillagesGeoJSON && unionsGeoJSON && (
             <DashboardMap
               villagesGeoJSON={villagesGeoJSON}
+              allVillagesGeoJSON={allVillagesGeoJSON}
               unionsGeoJSON={unionsGeoJSON}
               colorMetric={colorMetric}
               selectedVillage={selectedVillage}
