@@ -85,20 +85,18 @@ export function joinDataToGeoJSON(
   const dataMap = new Map<string, VillageData>();
   data.forEach((d) => dataMap.set(d.JOIN_CODE, d));
 
-  const joinedFeatures = geojson.features
-    .map((feature: any) => {
-      const code = feature.properties?.JOIN_CODE;
-      const villageData = code ? dataMap.get(code) : undefined;
-      if (!villageData) return null;
-      return {
-        ...feature,
-        properties: {
-          ...feature.properties,
-          ...villageData,
-        },
-      };
-    })
-    .filter(Boolean);
+  const joinedFeatures = geojson.features.map((feature: any) => {
+    const code = feature.properties?.JOIN_CODE;
+    const villageData = code ? dataMap.get(code) : undefined;
+    return {
+      ...feature,
+      properties: {
+        ...feature.properties,
+        ...(villageData || {}),
+        _hasData: !!villageData,
+      },
+    };
+  });
 
   return { ...geojson, features: joinedFeatures };
 }
